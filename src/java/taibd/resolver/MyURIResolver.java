@@ -29,7 +29,7 @@ public class MyURIResolver implements javax.xml.transform.URIResolver {
 
     @Override
     public Source resolve(String href, String base) throws TransformerException {
-        if (href != null && href.indexOf("https://routine.vn/") == 0) {
+        if (href != null && (href.indexOf("https://routine.vn/") == 0 || href.indexOf("https://kapo.vn/") == 0)) {
             try {
                 String content = HttpUtils.getHttpContent(href);
                 XmlSyntaxChecker checker = new XmlSyntaxChecker();

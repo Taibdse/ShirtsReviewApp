@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -69,45 +70,47 @@ public class CrawlUtils {
         FileOutputStream fo = null;
         ByteArrayOutputStream bos = null;
         try {
-            System.out.println("inputXmlPath: " + inputXmlPath);
-            System.out.println("xslPath: " + xslPath);
-
             bos = TrAXUtils.transform(inputXmlPath, xslPath);
 
 //              save to file to test
-//            fo = new FileOutputStream(outputXmlPath);
-//            fo.write(bos.toByteArray());
-//            fo.flush();
+            fo = new FileOutputStream(outputXmlPath);
+            fo.write(bos.toByteArray());
+            fo.flush();
 //            
 //            InputStream fileInputstream = new FileInputStream(outputXmlPath);
-            List<JAXBProduct> products = parseDataFromXMLByStAX(new ByteArrayInputStream(bos.toByteArray()));
-//            List<JAXBProduct> products = parseDataFromXMLByStAX(fileInputstream);
-            System.out.println("products: " + products.size());
-            System.out.println("=====================");
-            for (JAXBProduct p : products) {
-                System.out.println("name: " + p.getName());
-                System.out.println("desc: " + p.getDescription());
-            }
-
-//             validate 
-            List<JAXBProduct> list = new ArrayList<>();
-            for (JAXBProduct product : products) {
-                if (isValid(product)) {
-                    list.add(product);
-                }
-            }
-
-            System.out.println("list: " + list.size());
-
-            saveToDB(list);
+//            InputStream is = new ByteArrayInputStream(bos.toByteArray(), StandardCharsets.UTF_8);
+//            List<JAXBProduct> products = parseDataFromXMLByStAX(new ByteArrayInputStream(bos.toByteArray()));
+////            List<JAXBProduct> products = parseDataFromXMLByStAX(fileInputstream);
+//            System.out.println("products: " + products.size());
+//            System.out.println("=====================");
+//            
+//            for (JAXBProduct p : products) {
+//                System.out.println("name: " + p.getName());
+//                System.out.println("desc: " + p.getDescription());
+//            }
+//
+////             validate 
+//            List<JAXBProduct> list = new ArrayList<>();
+//            for (JAXBProduct product : products) {
+//                if (isValid(product)) {
+//                    list.add(product);
+//                }
+//            }
+//
+//            System.out.println("list: " + list.size());
+//
+//            saveToDB(list);
 
         } catch (FileNotFoundException ex) {
             Logger.getLogger(TestCrawl.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (TransformerException ex) {
+        } 
+        catch (TransformerException ex) {
             Logger.getLogger(TestCrawl.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (XMLStreamException ex) {
-            Logger.getLogger(CrawlUtils.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
+        } 
+//        catch (XMLStreamException ex) {
+//            Logger.getLogger(CrawlUtils.class.getName()).log(Level.SEVERE, null, ex);
+//        } 
+        finally {
             if (fo != null) {
                 fo.close();
             }

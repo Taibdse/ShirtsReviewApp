@@ -24,7 +24,7 @@ import taibd.utilities.CrawlUtils;
  *
  * @author HOME
  */
-@WebServlet(name = "CrawlerServlet", urlPatterns = {"/CrawlerServlet"})
+@WebServlet(name = "CrawlerServlet", urlPatterns = {"/crawl"})
 public class CrawlerServlet extends HttpServlet {
 
     private static final String CRAWL_PAGE = "pages/crawl.jsp";

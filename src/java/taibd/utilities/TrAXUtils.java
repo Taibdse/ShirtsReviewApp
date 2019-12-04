@@ -5,6 +5,7 @@
  */
 package taibd.utilities;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -70,8 +71,10 @@ public class TrAXUtils {
 
         Transformer trans = tf.newTransformer(new StreamSource(new File(xslPath)));
         trans.transform(source, result);
+        
 
         return outputStream;
+        
     }
 
     public static ByteArrayOutputStream transform(InputStream xmlIs, Templates template)

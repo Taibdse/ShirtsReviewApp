@@ -17,6 +17,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import taibd.utilities.StringUtils;
 
 /**
  *
@@ -24,7 +25,19 @@ import javax.xml.bind.annotation.XmlType;
  */
 @Entity
 @Table(name = "Product", catalog = "ClothsReview", schema = "dbo")
-
+@XmlRootElement()
+@XmlType(propOrder = {
+    "id",
+    "name",
+    "slug",
+    "categoryId",
+    "price",
+    "description",
+    "image",
+    "colors",
+    "sizes",
+    "link",
+})
 @NamedQueries({
     @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p")
     , @NamedQuery(name = "Product.findById", query = "SELECT p FROM Product p WHERE p.id = :id")
@@ -177,4 +190,7 @@ public class Product implements Serializable {
         return "taibd.model.Product[ id=" + id + " ]";
     }
     
+    public String getPriceFormatted(){
+        return StringUtils.getPriceFormat(price);
+    }
 }

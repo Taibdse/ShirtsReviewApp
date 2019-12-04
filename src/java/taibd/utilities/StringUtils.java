@@ -29,4 +29,9 @@ public class StringUtils {
         }
         return (int) dp[n][m] * 100 / Math.min(m, m);
     }
+    
+     public static String getPriceFormat(Double price){
+        if(price == null) return "";
+        return String.format("%,.0f", price);
+     }
 }

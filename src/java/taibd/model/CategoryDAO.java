@@ -38,8 +38,13 @@ public class CategoryDAO implements Serializable{
     }
     
     public List<Category> findAll(){
-        EntityManager em = emf.createEntityManager();
-        return em.createNamedQuery("Category.findAll").getResultList();
+        try {
+            EntityManager em = emf.createEntityManager();
+            return em.createNamedQuery("Category.findAll").getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
     
     public Category getCategoryByMatchingName(String categoryName){
@@ -49,5 +54,15 @@ public class CategoryDAO implements Serializable{
         }).collect(Collectors.toList());
         if(foundList.size() == 0) return null;
         return foundList.get(0);
+    }
+    
+    public Category findById(String id){
+        try {
+            EntityManager em = emf.createEntityManager();
+            return (Category) em.createNamedQuery("Category.findById").setParameter("id", id).getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

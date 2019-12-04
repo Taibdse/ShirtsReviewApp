@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 /**
  *
@@ -57,7 +58,7 @@ public class HttpUtils {
             connection.setRequestProperty("Accept-Charset", "UTF-8");
             
             is = connection.getInputStream();
-            InputStreamReader isr = new InputStreamReader(is);
+            InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
             BufferedReader br = new BufferedReader(isr);
             String line = "";
             while((line = br.readLine()) != null) {

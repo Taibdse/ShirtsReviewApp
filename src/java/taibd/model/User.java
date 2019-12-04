@@ -9,10 +9,13 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -20,7 +23,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author HOME
  */
 @Entity
-@Table(name = "User", catalog = "ClothsReview", schema = "dbo")
+@Table(name = "Users", catalog = "ClothsReview", schema = "dbo", uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"username"})})
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
@@ -33,9 +37,11 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
-    @Column(name = "username", length = 500)
+    @Basic(optional = false)
+    @Column(name = "username", nullable = false, length = 500)
     private String username;
     @Column(name = "password", length = 500)
     private String password;
@@ -47,6 +53,11 @@ public class User implements Serializable {
 
     public User(Integer id) {
         this.id = id;
+    }
+
+    public User(Integer id, String username) {
+        this.id = id;
+        this.username = username;
     }
 
     public Integer getId() {

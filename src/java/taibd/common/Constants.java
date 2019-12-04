@@ -18,5 +18,8 @@ public class Constants {
     public static String KAPO_INPUT_XML = "kapo_crawler/input-cloths.xml";
     public static String KAPO_XSL = "kapo_crawler/cloth-main.xsl";
     public static String KAPO_OUTPUT_XML = "kapo_crawler/output-cloths.xml";
+    
+    public static String USER_ROLE = "USER_ROLE";
+    public static String ADMIN_ROLE = "ADMIN_ROLE";
 
 }

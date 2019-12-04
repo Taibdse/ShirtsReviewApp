@@ -7,26 +7,51 @@ and open the template in the editor.
 
 <xs:schema version="1.0"
            xmlns:xs="http://www.w3.org/2001/XMLSchema"
-           
            elementFormDefault="qualified">
     
     <xs:element name="cloth">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="name" type="xs:string"/>
-                <xs:element name="colors" type="xs:string"/>
-                <xs:element name="description" type="xs:string"/>
-                <xs:element name="sizes" type="xs:string"/>
-                <xs:element name="price">
+                <xs:element name="name" nillable="false">
                     <xs:simpleType>
-                        <xs:restriction base="xs:float">
-                          <xs:minInclusive value="0"/>
+                        <xs:restriction base="xs:string">
+                            <xs:minLength value="1"/>
                         </xs:restriction>
                     </xs:simpleType>
                 </xs:element>
-                <xs:element name="image" type="xs:string"/>
-                <xs:element name="category" type="xs:string"/>
-                <xs:element name="link" type="xs:string"/>
+                
+                <xs:element name="colors" type="xs:string"/>
+                <xs:element name="description" type="xs:string"/>
+                <xs:element name="sizes" type="xs:string"/>
+                
+                <xs:element name="price" nillable="false">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:float">
+                          <xs:minExclusive value="0"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="image" nillable="false">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:minLength value="1"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="category" nillable="false">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:minLength value="1"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
+                <xs:element name="link" nillable="false">
+                    <xs:simpleType>
+                        <xs:restriction base="xs:string">
+                            <xs:minLength value="1"/>
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:element>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
