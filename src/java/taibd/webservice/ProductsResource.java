@@ -15,7 +15,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import taibd.entity.XmlWrapperProductList;
+import taibd.entity.ProductListXmlWrapper;
 import taibd.model.Product;
 import taibd.model.ProductDAO;
 
@@ -24,7 +24,7 @@ import taibd.model.ProductDAO;
  *
  * @author HOME
  */
-@Path("products")
+@Path("def")
 public class ProductsResource {
 
     @Context
@@ -33,26 +33,24 @@ public class ProductsResource {
    
     public ProductsResource() {
     }
-
     
     @GET
 //    @Produces(MediaType.APPLICATION_XML)
     @Produces(MediaType.APPLICATION_XML)
-    public XmlWrapperProductList getProducts(
-            @QueryParam("categoryId") int categoryId, 
+    public ProductListXmlWrapper getProducts(
+            @QueryParam("categoryId") String categoryId, 
             @QueryParam("fromPrice") double fromPrice, 
             @QueryParam("toPrice") double toPrice, 
             @QueryParam("limit") int limit, 
             @QueryParam("offset") int offset) {
         //TODO return proper representation object
-        ProductDAO productDAO = new ProductDAO();
-        List<Product> products = productDAO.findByPagination(categoryId, limit, offset, fromPrice, toPrice);
-        XmlWrapperProductList wrapper = new XmlWrapperProductList();
-        wrapper.setProducts(products);
-        return wrapper;
+//        ProductDAO productDAO = new ProductDAO();
+//        List<Product> products = productDAO.findByPagination(categoryId, limit, offset, fromPrice, toPrice);
+//        ProductListXmlWrapper wrapper = new ProductListXmlWrapper();
+//        wrapper.setProducts(products);
+//        return wrapper;
+        return null;
     }
-    
-
     
     @PUT
     @Consumes(MediaType.APPLICATION_XML)

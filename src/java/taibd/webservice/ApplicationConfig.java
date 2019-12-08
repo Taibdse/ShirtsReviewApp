@@ -31,6 +31,7 @@ public class ApplicationConfig extends Application {
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(taibd.webservice.GenericResource.class);
         resources.add(taibd.webservice.ProductsResource.class);
+        resources.add(taibd.webservice.VotesResource.class);
     }
     
 }

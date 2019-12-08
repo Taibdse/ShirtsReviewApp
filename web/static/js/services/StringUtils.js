@@ -21,5 +21,11 @@ var StringUtils = {
         str = str.toLowerCase().trim()
 
         return str;
+    },
+    containsWithoutVnAccents: function(str1, str2){
+        str1 = StringUtils.removeVnAccents(str1).toLowerCase();
+        str2 = StringUtils.removeVnAccents(str2).toLowerCase();
+        return str1.indexOf(str2) > -1;
     }
+
 };

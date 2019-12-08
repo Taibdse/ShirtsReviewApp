@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -63,6 +64,10 @@ public class LoginServlet extends HttpServlet {
                     HttpSession session = request.getSession();
                     user.setPassword(null);
                     session.setAttribute("user", user);
+                    session.setMaxInactiveInterval(60*60*24);
+//                    Cookie ck = new Cookie("username",user.getUsername());  
+//                    ck.setMaxAge(0);  
+//                    response.addCookie(ck);  
                 }
             }
             

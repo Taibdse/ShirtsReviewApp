@@ -37,8 +37,8 @@ public class UserDAO implements Serializable {
     }
 
     public User findByUsername(String username) {
+        EntityManager em = emf.createEntityManager();
         try {
-            EntityManager em = emf.createEntityManager();
             Query query = em.createNamedQuery("User.findByUsername");
             query.setParameter("username", username);
             return (User) query.getSingleResult();

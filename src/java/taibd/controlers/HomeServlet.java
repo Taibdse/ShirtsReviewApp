@@ -8,16 +8,23 @@ package taibd.controlers;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import taibd.entity.ProductListXmlWrapper;
+import taibd.entity.ProductXMLWrapper;
 import taibd.model.Category;
 import taibd.model.CategoryDAO;
+import taibd.utilities.ObjectUtils;
 import taibd.model.Product;
 import taibd.model.ProductDAO;
+import taibd.model.Vote;
+import taibd.model.VotesDAO;
+import taibd.utilities.JAXBUtils;
 
 /**
  *
@@ -26,15 +33,39 @@ import taibd.model.ProductDAO;
 @WebServlet(name = "HomeServlet", urlPatterns = {"/home"})
 public class HomeServlet extends HttpServlet {
 
+    private final static VotesDAO votesDAO = new VotesDAO();
+    
     private static final String HOME_PAGE = "pages/home.jsp";
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ProductDAO productDAO = new ProductDAO();
-        CategoryDAO categoryDAO = new CategoryDAO();
-        List<Category> categories = categoryDAO.findAll();
-        List<Product> products = productDAO.findByPagination(0, 12, 10, 0, 0);
-        request.setAttribute("products", products);
-        request.setAttribute("categories", categories);
+//        ProductDAO productDAO = new ProductDAO();
+//        CategoryDAO categoryDAO = new CategoryDAO();
+//        
+////        List<Product> products = productDAO.findByPagination("all", 20, 0, 0, 0);
+//        List<Product> products = productDAO.findTheHottest();
+//        
+//        List<ProductXMLWrapper> list = products.stream().map(p -> {
+//            ProductXMLWrapper pWrapper = ObjectUtils.mapProductDTOToProductWrapper(p);
+//            double avgVotes = votesDAO.findProductAVGVotes(p.getId());
+//            pWrapper.setAvgVotes(avgVotes);
+//            return pWrapper;
+//        }).collect(Collectors.toList());
+//        
+//        for(int i = 0; i < list.size(); i++){
+//            System.out.println("name: " + list.get(i).getName());
+//        }
+//        
+//        ProductListXmlWrapper productsListXmlWrapper = new ProductListXmlWrapper();
+//        productsListXmlWrapper.setProducts(list);
+//        
+//        try {
+//            String xmlDoc = JAXBUtils.marshal(productsListXmlWrapper, ProductListXmlWrapper.class);
+//            request.setAttribute("products", xmlDoc);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+        
         RequestDispatcher rd = request.getRequestDispatcher(HOME_PAGE);
         rd.forward(request, response);
     }

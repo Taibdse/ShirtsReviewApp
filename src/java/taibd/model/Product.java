@@ -9,14 +9,13 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 import taibd.utilities.StringUtils;
 
 /**
@@ -25,19 +24,7 @@ import taibd.utilities.StringUtils;
  */
 @Entity
 @Table(name = "Product", catalog = "ClothsReview", schema = "dbo")
-@XmlRootElement()
-@XmlType(propOrder = {
-    "id",
-    "name",
-    "slug",
-    "categoryId",
-    "price",
-    "description",
-    "image",
-    "colors",
-    "sizes",
-    "link",
-})
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p")
     , @NamedQuery(name = "Product.findById", query = "SELECT p FROM Product p WHERE p.id = :id")
@@ -49,35 +36,46 @@ import taibd.utilities.StringUtils;
     , @NamedQuery(name = "Product.findByImage", query = "SELECT p FROM Product p WHERE p.image = :image")
     , @NamedQuery(name = "Product.findByColors", query = "SELECT p FROM Product p WHERE p.colors = :colors")
     , @NamedQuery(name = "Product.findBySizes", query = "SELECT p FROM Product p WHERE p.sizes = :sizes")
-    , @NamedQuery(name = "Product.findByLink", query = "SELECT p FROM Product p WHERE p.link = :link")})
+    , @NamedQuery(name = "Product.findByLink", query = "SELECT p FROM Product p WHERE p.link = :link")
+    , @NamedQuery(name = "Product.findByViews", query = "SELECT p FROM Product p WHERE p.views = :views")})
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     @Column(name = "id", nullable = false)
     private Integer id;
+    @Size(max = 500)
     @Column(name = "name", length = 500)
     private String name;
+    @Size(max = 500)
     @Column(name = "slug", length = 500)
     private String slug;
-    @Column(name = "categoryId")
+    @Size(max = 500)
+    @Column(name = "categoryId", length = 500)
     private String categoryId;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "price", precision = 53)
     private Double price;
+    @Size(max = 5000)
     @Column(name = "description", length = 5000)
     private String description;
+    @Size(max = 500)
     @Column(name = "image", length = 500)
     private String image;
+    @Size(max = 500)
     @Column(name = "colors", length = 500)
     private String colors;
+    @Size(max = 500)
     @Column(name = "sizes", length = 500)
     private String sizes;
+    @Size(max = 500)
     @Column(name = "link", length = 500)
     private String link;
-    
+    @Column(name = "views")
+    private Integer views;
+
     public Product() {
     }
 
@@ -165,6 +163,14 @@ public class Product implements Serializable {
         this.link = link;
     }
 
+    public Integer getViews() {
+        return views;
+    }
+
+    public void setViews(Integer views) {
+        this.views = views;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -193,4 +199,5 @@ public class Product implements Serializable {
     public String getPriceFormatted(){
         return StringUtils.getPriceFormat(price);
     }
+    
 }

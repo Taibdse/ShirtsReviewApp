@@ -4,8 +4,8 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>taibd.model.Category</class>
     <class>taibd.model.Product</class>
-    <class>taibd.model.Votes</class>
     <class>taibd.model.User</class>
+    <class>taibd.model.Vote</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://localhost:1433;databaseName=ClothsReview"/>

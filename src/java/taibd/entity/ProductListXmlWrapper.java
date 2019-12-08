@@ -16,20 +16,19 @@ import taibd.model.Product;
  * @author HOME
  */
 @XmlRootElement(name = "products")
-public class XmlWrapperProductList {
-    List<Product> products;
+public class ProductListXmlWrapper {
+    List<ProductXMLWrapper> products;
 
-    public XmlWrapperProductList() {
+    public ProductListXmlWrapper() {
     }
 
     @XmlElement(name = "product")
-    public List<Product> getProducts() {
+    public List<ProductXMLWrapper> getProducts() {
         return products;
     }
 
-    public void setProducts(List<Product> products) {
+    public void setProducts(List<ProductXMLWrapper> products) {
         this.products = products;
     }
-    
     
 }

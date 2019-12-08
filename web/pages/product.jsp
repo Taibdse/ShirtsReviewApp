@@ -30,13 +30,15 @@
                                 <img src="${product.image}" class="card-img-top" alt="">
                                 <div class="card-body">
                                     <h5 class="card-title">${product.name}</h5>
-                                    <p class="card-text">Price: ${product.getPriceFormatted()} vnd</p>
-                                    <p class="card-text">Description: ${product.description}</p>
-                                    <p class="card-text">Sizes: ${product.sizes}</p>
-                                    <p class="card-text">Colors: ${product.colors}</p>
+                                    <p class="card-text"><strong>Price</strong>: ${product.getPriceFormatted()} vnd</p>
+                                    <p class="card-text"><strong>Description</strong>: ${product.description}</p>
+                                    <p class="card-text"><strong>Sizes</strong>: ${product.sizes}</p>
+                                    <p class="card-text"><strong>Colors</strong>: ${product.colors}</p>
                                     <c:if test="${category != null}">
-                                        <p class="card-text">Category: ${category.name}</p>
+                                        <p class="card-text"><strong>Category</strong>: ${category.name}</p>
                                     </c:if>
+                                    <p class="card-text"><strong>Views</strong>: ${product.views}</p>
+                                    <p class="card-text"><strong>Stars</strong>: ${product.avgVotes}</p>
                                     <a href="${product.link}" target="_blank" class="btn btn-primary float-right">Go to buy now</a>
                                 </div>
                             </div>

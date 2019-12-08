@@ -30,7 +30,7 @@
                     </div>
                  </c:if>
 
-                <c:if test="${!errors.isEmpty()}">
+                <c:if test="${errors != null && !errors.isEmpty()}">
                     <div class="col-sm-8 mx-auto">
                         <div class="alert alert-danger" role="alert">
                             <c:forEach items="${errors.errors}" var="error">
