@@ -118,12 +118,12 @@ public class ProductDAO implements Serializable {
 
     public List<Product> findTheHottest() {
         EntityManager em = emf.createEntityManager();
-        String sql = "SELECT p, AVG(v.votes) as avgVotes, COUNT(v.votes) as numOfVotes FROM Product p LEFT JOIN Vote v ON p.id = v.productId"
-                + ""
-                + " WHERE avgVotes >= 3.5 ORDER BY numOfVotes DESC";
+        String sql = "SELECT p FROM Product p WHERE "
+                + "(select AVG(v.votes) from Vote v where v.votePK.productId = p.id) >= 3.5 "
+                + "ORDER BY (select COUNT(v.votes) from Vote v where v.votePK.productId = p.id)";
         Query query = em.createQuery(sql);
-        query.setFirstResult(0);
-        query.setMaxResults(20);
+//        query.setFirstResult(0);
+//        query.setMaxResults(15);
         return query.getResultList();
     }
 }

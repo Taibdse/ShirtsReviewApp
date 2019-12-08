@@ -39,32 +39,30 @@ public class HomeServlet extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        ProductDAO productDAO = new ProductDAO();
-//        CategoryDAO categoryDAO = new CategoryDAO();
-//        
-////        List<Product> products = productDAO.findByPagination("all", 20, 0, 0, 0);
-//        List<Product> products = productDAO.findTheHottest();
-//        
-//        List<ProductXMLWrapper> list = products.stream().map(p -> {
-//            ProductXMLWrapper pWrapper = ObjectUtils.mapProductDTOToProductWrapper(p);
-//            double avgVotes = votesDAO.findProductAVGVotes(p.getId());
-//            pWrapper.setAvgVotes(avgVotes);
-//            return pWrapper;
-//        }).collect(Collectors.toList());
-//        
-//        for(int i = 0; i < list.size(); i++){
-//            System.out.println("name: " + list.get(i).getName());
-//        }
-//        
-//        ProductListXmlWrapper productsListXmlWrapper = new ProductListXmlWrapper();
-//        productsListXmlWrapper.setProducts(list);
-//        
-//        try {
-//            String xmlDoc = JAXBUtils.marshal(productsListXmlWrapper, ProductListXmlWrapper.class);
-//            request.setAttribute("products", xmlDoc);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        ProductDAO productDAO = new ProductDAO();
+        CategoryDAO categoryDAO = new CategoryDAO();
+        
+//        List<Product> products = productDAO.findByPagination("all", 20, 0, 0, 0);
+        List<Product> products = productDAO.findTheHottest();
+        
+        List<ProductXMLWrapper> list = products.stream().map(p -> {
+            ProductXMLWrapper pWrapper = ObjectUtils.mapProductDTOToProductWrapper(p);
+            double avgVotes = votesDAO.findProductAVGVotes(p.getId());
+            int numOfVotes = votesDAO.findProductCountVotes(p.getId());
+            pWrapper.setAvgVotes(avgVotes);
+            pWrapper.setNumOfVotes(numOfVotes);
+            return pWrapper;
+        }).collect(Collectors.toList());
+        
+        ProductListXmlWrapper productsListXmlWrapper = new ProductListXmlWrapper();
+        productsListXmlWrapper.setProducts(list);
+        
+        try {
+            String xmlDoc = JAXBUtils.marshal(productsListXmlWrapper, ProductListXmlWrapper.class);
+            request.setAttribute("products", xmlDoc);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         
         RequestDispatcher rd = request.getRequestDispatcher(HOME_PAGE);
         rd.forward(request, response);

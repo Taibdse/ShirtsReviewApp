@@ -56,6 +56,9 @@
                         </td>
                         <td>
                             <xsl:value-of select=".//avgVotes/text()" /> <span class="fa fa-star star-rating checked"></span>
+                            <div>
+                                <xsl:value-of select=".//numOfVotes/text()" /> votes
+                            </div>
                         </td>
                         <td>
                             <xsl:value-of select=".//views/text()" />

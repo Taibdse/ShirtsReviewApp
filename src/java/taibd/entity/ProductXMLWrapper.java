@@ -28,6 +28,7 @@ import taibd.utilities.StringUtils;
     "views",
     "votes",
     "avgVotes",
+    "numOfVotes",
 })
 public class ProductXMLWrapper {
     private int id;
@@ -146,10 +147,6 @@ public class ProductXMLWrapper {
     public void setAvgVotes(double avgVotes) {
         this.avgVotes = avgVotes;
     }
-    
-    public String getPriceFormatted(){
-        return StringUtils.getPriceFormat(price);
-    }
 
     @XmlElement
     public int getVotes() {
@@ -159,6 +156,18 @@ public class ProductXMLWrapper {
     public void setVotes(int votes) {
         this.votes = votes;
     }
+
+    @XmlElement
+    public int getNumOfVotes() {
+        return numOfVotes;
+    }
     
+    public void setNumOfVotes(int numOfVotes) {
+        this.numOfVotes = numOfVotes;
+    }
+    
+    public String getPriceFormatted(){
+        return StringUtils.getPriceFormat(price);
+    }
     
 }

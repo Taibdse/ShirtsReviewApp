@@ -16,7 +16,7 @@ public class ObjectUtils {
     public static ProductXMLWrapper mapProductDTOToProductWrapper(Product p){
         ProductXMLWrapper wrapper = new ProductXMLWrapper();
         wrapper.setId(p.getId());
-        wrapper.setCategoryId(p.getCategoryId());
+        wrapper.setCategoryId(p.getCategoryId().getId());
         wrapper.setColors(p.getColors());
         wrapper.setDescription(p.getDescription());
         wrapper.setName(p.getName());

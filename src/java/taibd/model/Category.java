@@ -6,14 +6,19 @@
 package taibd.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -32,12 +37,18 @@ public class Category implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
-    @Column(name = "id", nullable = false)
+    @NotNull
+    @Size(min = 1, max = 500)
+    @Column(name = "id", nullable = false, length = 500)
     private String id;
+    @Size(max = 500)
     @Column(name = "name", length = 500)
     private String name;
+    @Size(max = 500)
     @Column(name = "slug", length = 500)
     private String slug;
+    @OneToMany(mappedBy = "categoryId")
+    private Collection<Product> productCollection;
 
     public Category() {
     }
@@ -68,6 +79,15 @@ public class Category implements Serializable {
 
     public void setSlug(String slug) {
         this.slug = slug;
+    }
+
+    @XmlTransient
+    public Collection<Product> getProductCollection() {
+        return productCollection;
+    }
+
+    public void setProductCollection(Collection<Product> productCollection) {
+        this.productCollection = productCollection;
     }
 
     @Override

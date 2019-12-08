@@ -159,7 +159,7 @@ public class CrawlUtils {
 
             for (Product p : list) {
                 p.setId(0);
-                p.setCategoryId(cateId);
+                p.getCategoryId().setId(cateId);
                 porductDao.persist(p);
             }
         }

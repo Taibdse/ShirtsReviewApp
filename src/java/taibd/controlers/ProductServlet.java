@@ -68,7 +68,7 @@ public class ProductServlet extends HttpServlet {
         try {
             Product p = productDAO.findById(productId);
             if(p != null){
-                category = categoryDAO.findById(p.getCategoryId());
+                category = p.getCategoryId();
                 int views = p.getViews() != null ? (p.getViews() + 1) : 1;
                 p.setViews(views);
                 productDAO.updateProduct(p);
