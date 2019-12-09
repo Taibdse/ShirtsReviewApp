@@ -15,6 +15,7 @@ var canLoadMore = true;
 var quickSearchTimeout = null;
 var loadMoreTimeout = null;
 var isLoading = false;
+var currentNumOfProducts = 0;
 
 var $fromPrice = document.getElementById("fromPrice");
 var $toPrice = document.getElementById("toPrice");
@@ -38,35 +39,56 @@ $inputQuickSearch.addEventListener("keyup", function (e) {
     }, 300);
 });
 
-window.onscroll = function(ev) {
-    if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
-        clearTimeout(loadMoreTimeout);
-        loadMoreTimeout = setTimeout(function () {
+
+
+addEventOnscrollToWindow();
+handleSearchProducts();
+
+function addEventOnscrollToWindow() {
+    window.onscroll = function(ev) {
+        if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
             window.scrollBy(0, -50);
             if(canLoadMore && !isLoading) {
+                removeEventOnscrollToWindow();
                 handleLoadMoteProducts();
             }
-        }, 200);
-    }
-};
+        }
+   };
+}
 
-handleSearchProducts();
+function removeEventOnscrollToWindow() {
+    window.onscroll = null;
+}
 
 function renderNumOfProducts(numOfProducts){
     $numOfProducts.textContent = numOfProducts;
 }
 
+function clearSearchInput() {
+    $inputQuickSearch.value = '';
+}
+
 function handleQuickSearch(e){
+    removeEventOnscrollToWindow();
     var value = e.target.value;
     var $list = $productList.getElementsByClassName('product-item');
-   
+    var numOfProducts = 0;
     for(var i = 0; i < pagingProduct.data.length; i++){
-        if(StringUtils.containsWithoutVnAccents(name, value)){
+        var product = pagingProduct.data[i];
+        if(StringUtils.containsWithoutVnAccents(product.name, value)){
             $list[i].classList.remove('d-none');
+            numOfProducts++;
         } else {
             $list[i].classList.add('d-none');
         }
     }
+    currentNumOfProducts = numOfProducts;
+    
+    renderNumOfProducts(numOfProducts);
+    
+    setTimeout(function () {
+        addEventOnscrollToWindow();
+    }, 300);
 }
 
 function handleSearchProducts(){
@@ -104,10 +126,12 @@ function handleSearchProducts(){
             var products = getProductsFromXMLString(res);
             pagingProduct.data = products;
             pagingProduct.offset = pagingProduct.offset + products.length;
+            currentNumOfProducts = pagingProduct.data.length;
             
             renderProducts(products);
             hideSpinner();
-            renderNumOfProducts(pagingProduct.data.length);
+            renderNumOfProducts(currentNumOfProducts);
+            clearSearchInput();
             
             isLoading = false;
         }, 
@@ -148,15 +172,17 @@ function handleLoadMoteProducts(){
             if(!ValidationUtils.isEmpty(products)){
                 pagingProduct.data = pagingProduct.data.concat(products);
                 pagingProduct.offset = offset + products.length;
+                currentNumOfProducts = pagingProduct.data.length;
                 
                 renderMoreProducts(products);
-                renderNumOfProducts(pagingProduct.data.length);
+                renderNumOfProducts(currentNumOfProducts);
             } else {
                 canLoadMore = false;
                 renderNoMoreproductsFound();
             }
             hideSpinner();
             isLoading = false;
+            addEventOnscrollToWindow();
         }, 
     };
     
@@ -296,9 +322,13 @@ function renderMoreProducts(products){
         var $div = createSingleProductCard(product);
         if(!StringUtils.containsWithoutVnAccents(product.name, currentQuixkSearchVal)) {
             $div.classList.add('d-none');
+        } else {
+            currentNumOfProducts++;
         }
         $productList.appendChild($div);
     }
+    
+    renderNumOfProducts(currentNumOfProducts);
 }
 
 

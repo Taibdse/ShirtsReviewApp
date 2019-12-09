@@ -75,9 +75,10 @@ public class VotesDAO implements Serializable {
      public int findProductCountVotes(int productId){
         EntityManager em = emf.createEntityManager();
         try {
-            Query query = em.createQuery("SELECT COUNT(v) FROM Vote v WHERE v.votePK.productId = :productId");
+           Query query = em.createQuery("SELECT v.votes FROM Vote v WHERE v.votePK.productId = :productId");
             query.setParameter("productId", productId);
-            return (int) query.getSingleResult();
+            List<Integer> list = query.getResultList();
+            return list.size();
         } catch (Exception e) {
             e.printStackTrace();
             return 0;
