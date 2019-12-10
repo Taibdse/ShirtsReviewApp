@@ -34,4 +34,11 @@ public class StringUtils {
         if(price == null) return "";
         return String.format("%,.0f", price);
      }
+     
+    public static String getValidString(String str){
+        if(str == null || str.trim().length() == 0) return "";
+        String temp = str.replaceAll(",", "");
+        if(temp.trim().length() == 0) return "";
+        return str;
+    }
 }

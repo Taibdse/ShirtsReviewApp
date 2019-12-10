@@ -7,7 +7,7 @@ import taibd.model.Product;
 import taibd.model.User;
 import taibd.model.VotePK;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2019-12-10T14:55:25")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2019-12-10T23:34:42")
 @StaticMetamodel(Vote.class)
 public class Vote_ { 
 

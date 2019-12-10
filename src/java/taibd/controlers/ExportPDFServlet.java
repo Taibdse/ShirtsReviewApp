@@ -7,11 +7,28 @@ package taibd.controlers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.xml.transform.Transformer;
+import taibd.common.Constants;
+import taibd.entity.ProductListXmlWrapper;
+import taibd.entity.ProductXMLWrapper;
+import taibd.model.CategoryDAO;
+import taibd.model.Product;
+import taibd.model.ProductDAO;
+import taibd.model.User;
+import taibd.model.VotesDAO;
+import taibd.utilities.JAXBUtils;
+import taibd.utilities.ObjectUtils;
+import taibd.utilities.PDFUtils;
 
 /**
  *
@@ -23,11 +40,35 @@ public class ExportPDFServlet extends HttpServlet {
    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-           
-        }finally{
-            
-        }
+       ProductDAO productDAO = new ProductDAO();
+        CategoryDAO categoryDAO = new CategoryDAO();
+        VotesDAO votesDAO = new VotesDAO();
+
+        //Synthesis data
+        ProductListXmlWrapper productsListXmlWrapper = productDAO.findTheHottest();
+
+        if (productsListXmlWrapper.getProducts().size() > 0) {
+            try {
+                String xmlDoc = JAXBUtils.marshal(productsListXmlWrapper, ProductListXmlWrapper.class);
+                request.setAttribute("products", xmlDoc);
+
+                Date time = new Date();
+                SimpleDateFormat ft = new SimpleDateFormat("E MM/dd/yyyy 'at' hh:mm:ss a");
+                //co nghe noi ko, t ko nghe gi het
+                String fo = PDFUtils.transformFromXSL(getServletContext().getRealPath("/WEB-INF/pdf/hot_products.xsl"), xmlDoc, new PDFUtils.CustomizeTransformerCallback() {
+                    @Override
+                    public void customize(Transformer trans) {
+                        trans.setParameter("timestamp", ft.format(time));
+                        trans.setParameter("root", getServletContext().getRealPath("/"));
+                    }
+                });
+
+                PDFUtils.exportXMLtoPDF(fo, request, response);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } 
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

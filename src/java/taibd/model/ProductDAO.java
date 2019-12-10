@@ -9,12 +9,16 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import taibd.entity.ProductListXmlWrapper;
 import taibd.entity.ProductXMLWrapper;
+import taibd.utilities.ObjectUtils;
+import taibd.utilities.StringUtils;
 
 /**
  *
@@ -116,18 +120,40 @@ public class ProductDAO implements Serializable {
         return query.getResultList();
     }
 
-    public List<Product> findTheHottest() {
+    public ProductListXmlWrapper findTheHottest() {
         EntityManager em = emf.createEntityManager();
 //        String sql = "SELECT p FROM Product p WHERE "
 //                + "(select AVG(v.votes) from Vote v where v.votePK.productId = p.id) >= 3.5 "
 //                + "ORDER BY (select COUNT(v.votePK.productId) from Vote v where v.votePK.productId = p.id) desc";
 
-
         String sql = "SELECT p FROM Product p WHERE "
-                        + "(select AVG(CAST(v.votes as float)) from Vote v where v.votePK.productId = p.id) >= 3.5 ";
+                + "(select AVG(CAST(v.votes as float)) from Vote v where v.votePK.productId = p.id) >= 3.5 ";
         Query query = em.createQuery(sql);
+        
 //        query.setFirstResult(0);
 //        query.setMaxResults(15);
-        return query.getResultList();
+
+        List<Product> products = query.getResultList();
+        VotesDAO votesDAO = new VotesDAO();
+        
+        List<ProductXMLWrapper> list = products.stream().map(p -> {
+            ProductXMLWrapper pWrapper = ObjectUtils.mapProductDTOToProductWrapper(p);
+            double avgVotes = votesDAO.findProductAVGVotes(p.getId());
+            int numOfVotes = votesDAO.findProductCountVotes(p.getId());
+            pWrapper.setAvgVotes(avgVotes);
+            pWrapper.setNumOfVotes(numOfVotes);
+            pWrapper.setSizes(StringUtils.getValidString(pWrapper.getSizes()));
+            pWrapper.setColors(StringUtils.getValidString(pWrapper.getColors()));
+            return pWrapper;
+        })
+        .sorted((p1, p2) -> p2.getNumOfVotes() - p1.getNumOfVotes())
+        .skip(0)
+        .limit(15)
+        .collect(Collectors.toList());
+
+        ProductListXmlWrapper productsListXmlWrapper = new ProductListXmlWrapper();
+        productsListXmlWrapper.setProducts(list);
+        
+        return productsListXmlWrapper;
     }
 }

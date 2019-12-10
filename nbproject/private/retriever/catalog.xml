@@ -3,4 +3,6 @@
     <system systemId="http://www.w3.org/1999/XSL/Format" uri="www.w3.org/1999/xsl/format"/>
     <system systemId="https://routine.vn/" uri="routine.vn/index"/>
     <system systemId="https://kapo.vn/" uri="kapo.vn/index"/>
+    <system systemId="http://products.vn" uri="products.vn"/>
+    <system systemId="http://www.w3.org/2005/xpath-functions" uri="www.w3.org/2005/xpath-functions/index.xml"/>
 </catalog>

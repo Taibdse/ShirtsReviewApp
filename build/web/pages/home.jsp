@@ -22,7 +22,7 @@
             .table *{
                 font-size: 0.95em!important;
             }
-            </style>
+        </style>
     </head>
     <body style="">
         <jsp:include page="../components/navbar.jsp" />
@@ -30,19 +30,29 @@
         <p class="text-center">Here is the list of hottest products in Shirts Reviews</p>
         <div class="container-fluid" style="padding-bottom: 300px">
             <c:if test="${notfound != true}">
-                 <c:import url="/WEB-INF/products.xsl" var="xslProductList" />
+                <c:import url="/WEB-INF/products.xsl" var="xslProductList" />
                 <c:set value="${requestScope.products}" var="xmlProducts" />
                 <c:if test="${xmlProducts != null}">
                     <x:transform xml="${xmlProducts}" xslt="${xslProductList}" />
                 </c:if>
             </c:if>
-            <c:if test="${notfound == true}">
+            <c:if test="${notfound}">
                 <h3 class="text-center">No products to suggest for you now!</h3>
             </c:if>
-           
+            <c:if test="${!notfound && isAdmin}">
+                <button id="btnExportPDF" class="btn btn-danger float-right mt-3">Export PDF</button>
+            </c:if>
+
         </div>
     </body>
 
+    <script>
+        var $btnExportPDF = document.getElementById('btnExportPDF');
+        
+        $btnExportPDF.addEventListener('click', function () {
+              window.open('exportPDF', '_blank');
+        })
+    </script>
 
-    
+
 </html>
