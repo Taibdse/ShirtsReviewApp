@@ -24,7 +24,7 @@
                 <form action="crawl" method="POST">
                     <input name="btAction" type="submit" value="Crawl routine.vn website" class="btn btn-success"><br/>
                 </form>
-                <form action="CrawlerServlet" method="POST">
+                <form action="crawl" method="POST">
                     <input name="btAction" class="btn btn-warning mt-3" type="submit" value="Crawl kapo.vn website">
                 </form>
             </div>

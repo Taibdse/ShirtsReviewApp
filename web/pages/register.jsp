@@ -50,6 +50,8 @@
                             </div>
                             <button type="submit" class="btn btn-success float-right">Register</button>
                         </form>
+                        <div class="mt-2">If you had an account, please <a href="${context}/pages/login.jsp">login</a> here</div>
+
                     </div>
                 </div>
             </div>

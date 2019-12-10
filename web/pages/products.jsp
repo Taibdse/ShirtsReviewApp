@@ -110,6 +110,6 @@
 
     <script src="${context}/static/js/services/HttpUtils.js"></script>
     <script src="${context}/static/js/services/ValidationUtils.js"></script>
-    <script src="${context}/static/js/services/StringUtils.js"></script>
-    <script src="${context}/static/js/index.js"></script>
+    <script src="${context}/static/js/services/StringUtils.js" charset="UTF-8"></script>
+    <script src="${context}/static/js/test.js"></script>
 </html>

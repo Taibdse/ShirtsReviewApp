@@ -13,7 +13,7 @@
     
     <xsl:template match="nav[contains(@class, 'main-nav')]/ul">
         <xsl:for-each select="./li">
-            <xsl:if test="position() = 2">
+            <xsl:if test="position() &lt; 6">
                 <xsl:variable name="category" select="./a/@title"/>
                 <xsl:variable name="categoryLink" select="./a/@href"/>
                 <xsl:call-template name="CrawlCloth">

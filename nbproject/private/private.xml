@@ -3,27 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/FPTU/SE%208/PRX301/final/ShirtReviewsApp/web/WEB-INF/products.xsl</file>
-            <file>file:/E:/FPTU/SE%208/PRX301/final/ShirtReviewsApp/src/java/taibd/model/ProductDAO.java</file>
+            <file>file:/E:/FPTU/SE%208/PRX301/final/ShirtReviewsApp/src/java/taibd/controlers/CrawlerServlet.java</file>
             <file>file:/E:/FPTU/SE%208/PRX301/final/ShirtReviewsApp/src/java/taibd/utilities/CrawlUtils.java</file>
-            <file>file:/E:/FPTU/SE%208/PRX301/final/ShirtReviewsApp/web/pages/home.jsp</file>
-            <file>file:/E:/FPTU/SE%208/PRX301/final/ShirtReviewsApp/src/java/taibd/controlers/DispatchServlet.java</file>
-            <file>file:/E:/FPTU/SE%208/PRX301/final/ShirtReviewsApp/web/static/css/style.css</file>
-            <file>file:/E:/FPTU/SE%208/PRX301/final/ShirtReviewsApp/web/pages/products.jsp</file>
-            <file>file:/E:/FPTU/SE%208/PRX301/final/ShirtReviewsApp/src/java/taibd/model/Product.java</file>
+            <file>file:/E:/FPTU/SE%208/PRX301/final/ShirtReviewsApp/src/java/taibd/utilities/HttpUtils.java</file>
+            <file>file:/E:/FPTU/SE%208/PRX301/final/ShirtReviewsApp/src/java/taibd/utilities/TrAXUtils.java</file>
             <file>file:/E:/FPTU/SE%208/PRX301/final/ShirtReviewsApp/src/java/taibd/controlers/ProductsAPIServlet.java</file>
-            <file>file:/E:/FPTU/SE%208/PRX301/final/ShirtReviewsApp/src/java/taibd/controlers/ProductServlet.java</file>
-            <file>file:/E:/FPTU/SE%208/PRX301/final/ShirtReviewsApp/src/java/taibd/utilities/JAXBUtils.java</file>
-            <file>file:/E:/FPTU/SE%208/PRX301/final/ShirtReviewsApp/src/java/taibd/utilities/ObjectUtils.java</file>
-            <file>file:/E:/FPTU/SE%208/PRX301/final/ShirtReviewsApp/src/java/products.xsl</file>
-            <file>file:/E:/FPTU/SE%208/PRX301/final/ShirtReviewsApp/web/static/js/index.js</file>
-            <file>file:/E:/FPTU/SE%208/PRX301/final/ShirtReviewsApp/src/java/taibd/model/VotesDAO.java</file>
-            <file>file:/E:/FPTU/SE%208/PRX301/final/ShirtReviewsApp/web/pages/login.jsp</file>
-            <file>file:/E:/FPTU/SE%208/PRX301/final/ShirtReviewsApp/src/java/taibd/entity/ProductXMLWrapper.java</file>
-            <file>file:/E:/FPTU/SE%208/PRX301/final/ShirtReviewsApp/src/java/taibd/controlers/HomeServlet.java</file>
-            <file>file:/E:/FPTU/SE%208/PRX301/final/ShirtReviewsApp/src/java/taibd/model/UserDAO.java</file>
-            <file>file:/E:/FPTU/SE%208/PRX301/final/ShirtReviewsApp/src/java/taibd/entity/ProductListXmlWrapper.java</file>
-            <file>file:/E:/FPTU/SE%208/PRX301/final/ShirtReviewsApp/web/WEB-INF/pdf/products.xml</file>
+            <file>file:/E:/FPTU/SE%208/PRX301/final/ShirtReviewsApp/web/WEB-INF/kapo_crawler/cloth-category.xsl</file>
+            <file>file:/E:/FPTU/SE%208/PRX301/final/ShirtReviewsApp/src/java/taibd/resolver/MyURIResolver.java</file>
+            <file>file:/E:/FPTU/SE%208/PRX301/final/ShirtReviewsApp/web/WEB-INF/kapo_crawler/cloth-main.xsl</file>
+            <file>file:/E:/FPTU/SE%208/PRX301/final/ShirtReviewsApp/web/WEB-INF/routine_crawler/input-cloths.xml</file>
+            <file>file:/E:/FPTU/SE%208/PRX301/final/ShirtReviewsApp/web/WEB-INF/routine_crawler/cloth-category.xsl</file>
+            <file>file:/E:/FPTU/SE%208/PRX301/final/ShirtReviewsApp/web/WEB-INF/kapo_crawler/cloth-detail.xsl</file>
+            <file>file:/E:/FPTU/SE%208/PRX301/final/ShirtReviewsApp/web/WEB-INF/routine_crawler/cloth-main.xsl</file>
+            <file>file:/E:/FPTU/SE%208/PRX301/final/ShirtReviewsApp/web/WEB-INF/routine_crawler/cloth-detail.xsl</file>
         </group>
     </open-files>
 </project-private>

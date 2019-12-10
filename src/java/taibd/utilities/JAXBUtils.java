@@ -29,41 +29,6 @@ import org.xml.sax.InputSource;
  */
 public class JAXBUtils {
 
-    public static Object unmarshal(Node node, Class classType) throws JAXBException {
-        JAXBContext context = JAXBContext.newInstance(classType);
-        Unmarshaller u = context.createUnmarshaller();
-        return u.unmarshal(new DOMSource(node));
-    }
-
-    public static Object unmarshal(InputStream is, Class classType) throws JAXBException {
-        JAXBContext context = JAXBContext.newInstance(classType);
-        Unmarshaller unmarshaller = context.createUnmarshaller();
-        return unmarshaller.unmarshal(is);
-    }
-    
-    public static Object unmarshal(Reader reader, Class classType) throws JAXBException {
-        JAXBContext context = JAXBContext.newInstance(classType);
-        Unmarshaller unmarshaller = context.createUnmarshaller();
-        return unmarshaller.unmarshal(reader);
-    }
-
-    public static Object unmarshalBoardgame(InputStream is,
-            ValidationEventHandler handler, Schema schema, Class classType) throws JAXBException {
-        JAXBContext context = JAXBContext.newInstance(classType);
-        Unmarshaller unmarshaller = context.createUnmarshaller();
-        unmarshaller.setSchema(schema);
-        unmarshaller.setEventHandler(handler);
-        return unmarshaller.unmarshal(is);
-    }
-
-    public static void marshal(OutputStream os, Object data, Class type) throws JAXBException {
-        JAXBContext context = JAXBContext.newInstance(type);
-        Marshaller m = context.createMarshaller();
-        m.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
-//        m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        m.marshal(data, os);
-    }
-
     public static String marshal(Object data, Class type) throws JAXBException {
         JAXBContext context = JAXBContext.newInstance(type);
         Marshaller m = context.createMarshaller();
@@ -74,19 +39,5 @@ public class JAXBUtils {
         m.marshal(data, writer);
         return writer.toString();
     }
-
-//    public static void generateJavaClass(String output, String packageName, String schemaFilePath) throws IOException {
-//        SchemaCompiler sc = XJC.createSchemaCompiler();
-//        sc.setErrorListener(new ConsoleErrorReporter());
-//
-//        sc.forcePackageName(packageName);
-//
-//        File f = new File(schemaFilePath);
-//        sc.parseSchema(new InputSource(f.toURI().toString()));
-//
-//        S2JJAXBModel model = sc.bind();
-//        JCodeModel code = model.generateCode(null, null);
-//        code.build(new File(output));
-//    }
 
 }

@@ -13,7 +13,7 @@
     
     <xsl:template match="ul[@id='menu-primary-menu'][1]">
         <xsl:for-each select="./li">
-            <xsl:if test="position() &lt; 5 and position() &gt; 1">
+            <xsl:if test="position() &lt; 5 and position() &gt; 2">
                 <xsl:variable name="category" select="./a/text()"/>
                 <xsl:variable name="categoryLink" select="./a/@href"/>
                 <xsl:call-template name="CrawlCloth">

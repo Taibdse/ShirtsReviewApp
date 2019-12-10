@@ -47,7 +47,7 @@ public class VotesDAO implements Serializable {
             query.setParameter("productId", productId);
             return (Vote) query.getSingleResult();
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             return null;
         } finally {
             em.close();
@@ -68,7 +68,7 @@ public class VotesDAO implements Serializable {
             return (double) Math.round(((double) sum/list.size()) * 100) / 100 ;
 //            return (double) query.getSingleResult();
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             return 0;
         }
     }
@@ -80,7 +80,7 @@ public class VotesDAO implements Serializable {
             List<Integer> list = query.getResultList();
             return list.size();
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
             return 0;
         }
     }
@@ -103,7 +103,7 @@ public class VotesDAO implements Serializable {
             em.getTransaction().commit();
             return result > 0;
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         } finally {
             em.close();
         }

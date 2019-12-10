@@ -77,8 +77,8 @@ public class CrawlerServlet extends HttpServlet {
         } finally {
             if(!inputXml.isEmpty()){
                 try {
-                    CrawlUtils CrawlUtils = new CrawlUtils(this.getServletContext());
-                    CrawlUtils.crawlWebsite(inputXml, xslPath, outputXml);
+                    CrawlUtils crawlUtils = new CrawlUtils(this.getServletContext());
+                    crawlUtils.crawlWebsite(inputXml, xslPath, outputXml);
                     out.write("Success");
                 } catch (JAXBException ex) {
                     Logger.getLogger(CrawlerServlet.class.getName()).log(Level.SEVERE, null, ex);

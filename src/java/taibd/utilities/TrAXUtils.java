@@ -10,7 +10,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringWriter;
 import java.util.HashMap;
 import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
@@ -56,7 +58,7 @@ public class TrAXUtils {
     }
 
     public static ByteArrayOutputStream transform(String xmlPath, String xslPath)
-            throws FileNotFoundException, TransformerConfigurationException, TransformerException {
+            throws FileNotFoundException, TransformerConfigurationException, TransformerException, IOException {
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
@@ -71,42 +73,42 @@ public class TrAXUtils {
 
         Transformer trans = tf.newTransformer(new StreamSource(new File(xslPath)));
         trans.transform(source, result);
-        
+        String s = "";
 
         return outputStream;
         
     }
 
-    public static ByteArrayOutputStream transform(InputStream xmlIs, Templates template)
-            throws FileNotFoundException, TransformerConfigurationException, TransformerException {
-
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-
-        StreamSource source = new StreamSource(xmlIs);
-        StreamResult result = new StreamResult(outputStream);
-
-        Transformer trans = template.newTransformer();
-        trans.transform(source, result);
-
-        return outputStream;
-    }
+//    public static ByteArrayOutputStream transform(InputStream xmlIs, Templates template)
+//            throws FileNotFoundException, TransformerConfigurationException, TransformerException {
+//
+//        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+//
+//        StreamSource source = new StreamSource(xmlIs);
+//        StreamResult result = new StreamResult(outputStream);
+//
+//        Transformer trans = template.newTransformer();
+//        trans.transform(source, result);
+//
+//        return outputStream;
+//    }
 
     //using in crawl process
-    public static ByteArrayOutputStream transform(InputStream xmlIs, String xslPath)
-            throws FileNotFoundException, TransformerConfigurationException, TransformerException {
-
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-
-        TransformerFactory factory = getTransformerFactory();
-
-        StreamSource source = new StreamSource(xmlIs);
-        StreamSource xslSource = new StreamSource(new FileInputStream(xslPath));
-        StreamResult result = new StreamResult(outputStream);
-
-        Transformer trans = factory.newTransformer(xslSource);
-        trans.transform(source, result);
-
-        return outputStream;
-    }
+//    public static ByteArrayOutputStream transform(InputStream xmlIs, String xslPath)
+//            throws FileNotFoundException, TransformerConfigurationException, TransformerException {
+//
+//        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+//
+//        TransformerFactory factory = getTransformerFactory();
+//
+//        StreamSource source = new StreamSource(xmlIs);
+//        StreamSource xslSource = new StreamSource(new FileInputStream(xslPath));
+//        StreamResult result = new StreamResult(outputStream);
+//
+//        Transformer trans = factory.newTransformer(xslSource);
+//        trans.transform(source, result);
+//
+//        return outputStream;
+//    }
 
 }

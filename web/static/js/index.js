@@ -39,8 +39,6 @@ $inputQuickSearch.addEventListener("keyup", function (e) {
     }, 300);
 });
 
-
-
 addEventOnscrollToWindow();
 handleSearchProducts();
 

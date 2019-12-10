@@ -29,14 +29,17 @@
         <h1 class="text-center my-3">Welcome to Shirt Reviews</h1>
         <p class="text-center">Here is the list of hottest products in Shirts Reviews</p>
         <div class="container-fluid" style="padding-bottom: 300px">
-            <c:import url="/WEB-INF/products.xsl" var="xslProductList" />
-            <c:set value="${requestScope.products}" var="xmlProducts" />
-            <c:if test="${xmlProducts != null}">
-                <x:transform xml="${xmlProducts}" xslt="${xslProductList}" />
+            <c:if test="${notfound != true}">
+                 <c:import url="/WEB-INF/products.xsl" var="xslProductList" />
+                <c:set value="${requestScope.products}" var="xmlProducts" />
+                <c:if test="${xmlProducts != null}">
+                    <x:transform xml="${xmlProducts}" xslt="${xslProductList}" />
+                </c:if>
             </c:if>
-            <div>
-                <a href="" class="btn btn-danger float-right">Export PDF File</a>
-            </div>
+            <c:if test="${notfound == true}">
+                <h3 class="text-center">No products to suggest for you now!</h3>
+            </c:if>
+           
         </div>
     </body>
 

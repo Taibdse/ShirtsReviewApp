@@ -83,7 +83,7 @@ public class ProductDAO implements Serializable {
         }
 
         if (!categoryId.equalsIgnoreCase("all")) {
-            sql = "SELECT p FROM Product p where p.categoryId = :categoryId";
+            sql = "SELECT p FROM Product p where p.categoryId.id = :categoryId";
             hasCategory = true;
         } else {
             sql = "SELECT p FROM Product p";
@@ -124,7 +124,7 @@ public class ProductDAO implements Serializable {
 
 
         String sql = "SELECT p FROM Product p WHERE "
-                        + "(select AVG(v.votes) from Vote v where v.votePK.productId = p.id) >= 3.5 ";
+                        + "(select AVG(CAST(v.votes as float)) from Vote v where v.votePK.productId = p.id) >= 3.5 ";
         Query query = em.createQuery(sql);
 //        query.setFirstResult(0);
 //        query.setMaxResults(15);

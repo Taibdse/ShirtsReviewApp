@@ -78,7 +78,12 @@ public class LoginServlet extends HttpServlet {
             String url = LOGIN_PAGE;
             if(errors.isEmpty()) url = HOME_SERVLET;
             
-            request.getRequestDispatcher(url).forward(request, response);
+            if(url.equals(LOGIN_PAGE)){
+                request.getRequestDispatcher(url).forward(request, response);
+            } else {
+                String contextPath = this.getServletContext().getContextPath();
+                response.sendRedirect(contextPath + url);
+            }
             
     }
 

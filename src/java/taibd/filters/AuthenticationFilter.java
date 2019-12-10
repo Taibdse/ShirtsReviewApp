@@ -6,14 +6,6 @@
 package taibd.filters;
 
 import java.io.IOException;
-import java.io.PrintStream;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.Enumeration;
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -21,11 +13,8 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpServletResponseWrapper;
 import javax.servlet.http.HttpSession;
 import taibd.common.Constants;
 import taibd.model.User;
@@ -36,30 +25,28 @@ import taibd.model.User;
  */
 @WebFilter(filterName = "AuthenticationFilter", urlPatterns = {"/*"})
 public class AuthenticationFilter implements Filter {
+
     private HttpServletRequest httpRequest;
     private HttpServletResponse httpResponse;
     private static final String LOGIN_PAGE = "pages/login.jsp";
-    
+
     private static final String[] publicResourceEndpoints = new String[]{
         "/static",
-        "/pages",
-    };
-    
+        "/pages",};
+
     private static final String[] noneUserEndpoints = new String[]{
         "/login",
         "/home",
         "/register",
-        "/crawl",
     };
-    
+
     private FilterConfig filterConfig = null;
-    
+
     public AuthenticationFilter() {
-    }    
-    
+    }
+
     private void doBeforeProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
-        
 
         // Write code here to process the request and/or response before
         // the rest of the filter chain is invoked.
@@ -90,11 +77,11 @@ public class AuthenticationFilter implements Filter {
 	    log(buf.toString());
 	}
          */
-    }    
-    
+    }
+
     private void doAfterProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {
-       
+
         // Write code here to process the request and/or response after
         // the rest of the filter chain is invoked.
         // For example, a logging filter might log the attributes on the
@@ -131,67 +118,83 @@ public class AuthenticationFilter implements Filter {
         respOut.println("</p>");
          */
     }
-  
+
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
         httpRequest = (HttpServletRequest) request;
         httpResponse = (HttpServletResponse) response;
         String url = httpRequest.getRequestURI().toString();
-        
+
         HttpSession session = httpRequest.getSession(false);
         String role = getUserRole(session, httpRequest, httpResponse);
-        
+
         String contextPath = httpRequest.getContextPath();
-        
-        
-//        if(isPublicUrl(url)){
-//            chain.doFilter(request, response);
-//        } else {
-//            if(role == null){
-//                if(isNoneUserUrl(url)){
-//                    chain.doFilter(request, response);
-//                } else {
-//                    httpResponse.sendRedirect(LOGIN_PAGE);
-////                    httpResponse.sendRedirect(contextPath + "/login");
-//                }
-//            } else if(role.equals(Constants.USER_ROLE)){
-//                if(url.indexOf(contextPath + "/admin") != 0){
-//                    chain.doFilter(request, response);
-//                } else {
-//                    if(isPublicUrl(url)) httpResponse.sendRedirect("/home");
-//                    else chain.doFilter(request, response);
-//                }
-//            }
-//        
-           chain.doFilter(request, response);
-        
+        System.out.println("url: " + url);
+
+        if (url.equals(contextPath + "/")) {
+            httpResponse.sendRedirect(contextPath + "/home");
+        } else {
+            if (isPublicUrl(url)) {
+                chain.doFilter(request, response);
+            } else {
+                if (role == null) {
+                    if (isNoneUserUrl(url)) {
+                        chain.doFilter(request, response);
+                    } else {
+                        httpResponse.sendRedirect(LOGIN_PAGE);
+//                    httpResponse.sendRedirect(contextPath + "/login");
+                    }
+                } else if (role.equals(Constants.USER_ROLE)) {
+                    if (url.indexOf(contextPath + "/crawl") == 0) {
+                        httpResponse.sendRedirect(contextPath + "/home");
+                    } else {
+                        if (isPublicUrl(url)) {
+                            httpResponse.sendRedirect(contextPath + "/home");
+                        } else {
+                            chain.doFilter(request, response);
+                        }
+                    }
+                } else if (role.equals(Constants.ADMIN_ROLE)){
+                    chain.doFilter(request, response);
+                }
+            }
+        }
+
     }
-    
-    public boolean isPublicUrl(String url){
-        for(String str: publicResourceEndpoints){
-            if(url.contains(str)) return true;
+
+    public boolean isPublicUrl(String url) {
+        for (String str : publicResourceEndpoints) {
+            if (url.contains(str)) {
+                return true;
+            }
         }
         return false;
     }
-    
-    public boolean isNoneUserUrl(String url){
-        for(String str: noneUserEndpoints){
-            if(url.contains(str)) return true;
+
+    public boolean isNoneUserUrl(String url) {
+        for (String str : noneUserEndpoints) {
+            if (url.contains(str)) {
+                return true;
+            }
         }
         return false;
     }
-    
-    public String getUserRole(HttpSession session, HttpServletRequest req, HttpServletResponse res){
-        
-        if(session == null) return null;
-        
-        if(session != null){
+
+    public String getUserRole(HttpSession session, HttpServletRequest req, HttpServletResponse res) {
+
+        if (session == null) {
+            return null;
+        }
+
+        if (session != null) {
             User user = ((User) session.getAttribute("user"));
-            if(user == null) return null;
+            if (user == null) {
+                return null;
+            }
             return user.getRole();
         }
-        
+
         return null;
     }
 
@@ -199,24 +202,20 @@ public class AuthenticationFilter implements Filter {
         return (this.filterConfig);
     }
 
-    
     public void setFilterConfig(FilterConfig filterConfig) {
         this.filterConfig = filterConfig;
     }
 
-    
-    public void destroy() {        
+    public void destroy() {
     }
 
-   
-    public void init(FilterConfig filterConfig) {        
+    public void init(FilterConfig filterConfig) {
         this.filterConfig = filterConfig;
         if (filterConfig != null) {
-            
+
         }
     }
 
-   
     @Override
     public String toString() {
         if (filterConfig == null) {
@@ -226,7 +225,7 @@ public class AuthenticationFilter implements Filter {
         sb.append(filterConfig);
         sb.append(")");
         return (sb.toString());
-        
+
     }
-    
+
 }

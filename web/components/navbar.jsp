@@ -25,6 +25,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="${context}/products">Products </a>
                 </li>
+                <c:if test="${user.role == 'ADMIN_ROLE'}">
+                    <li class="nav-item">
+                        <a class="nav-link" href="${context}/crawl">Crawl</a>
+                    </li>
+                </c:if>
                 <li class="nav-item">
                     <a class="nav-link" href="${context}/logout">Logout</a>
                 </li>
